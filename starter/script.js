@@ -120,18 +120,108 @@ console.log(ages5);
 
 // ES6 -use of the arrow (argument el > arrow operator > return statement)
 // don't need the fucntion keyword or return.
+// one agruement + 1 line of code
 let age6 = years.map(el => 2016 - el);
 console.log(age6);
+
+//use ((,)) 
 
 age6 = years.map((el, index) => `Age element ${index + 1}: ${2016 - el}.`);
 console.log(age6);
 
+
+// use more then one line of code
+
 age6 = years.map((el, index) => {
     const now = new Date().getFullYear();
     const age = now - el;
-    return `Age element ${index + 1}: ${2016 - el}.`
+    return `Age element ${index + 1}: ${age}.`
 
 });
 console.log(age6)
+
+//////////////////////////////////
+//// Lecture: Arrow functions part 2
+
+//share the surranding .this keyword. they don;t get there own .this keyword.
+// They have a lexical .this keyword
+
+//ES5
+var box5 = {
+    color: 'green',
+    position: 1,
+    clickMe: function() {
+        var self = this; // hack made .this a varible in the global scope.
+        document.querySelector('.green').addEventListener('click', function() {
+                var str = 'This is box number ' + self.position + ' and it is ' + self.color;
+                alert(str);
+        });
+    }
+
+}
+//box5.clickMe();
+
+//ES6
+// By usiing the arrow function we have access to use the .this keyword of this method. 
+// Shares the lexical .this keyword of it's surranding.
+const box6 = {
+    color: 'green',
+    position: 1,
+    clickMe: function() {
+       
+        document.querySelector('.green').addEventListener('click', () =>  {
+                var str = 'This is box number ' + this.position + ' and it is ' + this.color;
+                alert(str);
+        });
+    }
+
+}
+box6.clickMe();
+/*
+//ES6
+// By usiing the arrow function we have access to use the .this keyword of this method. 
+// Shares the lexical .this keyword of it's surranding.
+const box66 = {
+    color: 'green',
+    position: 1,
+    clickMe: () => {
+       
+        document.querySelector('.green').addEventListener('click', () =>  {
+                var str = 'This is box number ' + this.position + ' and it is ' + this.color;
+                alert(str);
+        });
+    }
+
+}
+box66.clickMe();
+*/
+
+function Person(name) {
+    this.name = name;
+}
+
+Person.prototype.myFriends5 = function(friends) {
+
+        var arr = friends.map(function(el) {
+            return this.name + ' is friends with ' + el;
+        }.bind(this));
+
+        console.log(arr);
+}
+
+var friends = ['bob', 'Jane', 'Mark'];
+new Person('John').myFriends5(friends);
+
+//ES6
+Person.prototype.myFriends5 = function(friends) {
+
+        var arr = friends.map(el => `${this.name} is friends with ${el}`);
+
+        console.log(arr);
+};
+new Person('Mike').myFriends5(friends);
+
+
+
 
 
