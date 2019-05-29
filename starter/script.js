@@ -222,8 +222,8 @@ Person.prototype.myFriends5 = function(friends) {
 };
 new Person('Mike').myFriends5(friends);
 */
-
-////////////////////////////////// https://www.linkedin.com/in/steph-greene/
+/*
+////////////////////////////////// 
 //// Lecture: Decontructing
 
 // ES5
@@ -291,6 +291,7 @@ for(var i =0; i < boxesArr5.length; i++) {
     boxesArr5[i].textContent = 'I changed to blue!';
 }
 */
+/*
 
 //ES6
 for (const cur of boxesArr6) {
@@ -313,8 +314,450 @@ console.log(full);
 console.log(full.indexOf(true));
 console.log(ages[full.indexOf(true)]);
 
-//ES6
+//ES6 - call back function
 console.log(ages.findIndex(cur => cur >= 18));
 console.log(ages.find(cur => cur >= 18));
+
+*/
+
+/***********************************
+ * CODING CHALLENGE 2
+ */
+
+ /*
+ John and his family went on a holiday and went to 3 different resturants. 
+ The bills were $124, $48 and $268
+
+ To tip the waiter a fair amount, John created a simple tip calculator (as a function). He likes to tip 20% of the bill when the bill is less than $50, 15% when the bill is between $50 and $200, and 10% if the bill is more than $200.
+
+ In the end, John would like to have 2 arrays:
+ 1) Containing all three tips (one for each bill)
+
+ 2) Containing all three final paid amounts (bill + tip).
+
+ (NOTE: To calculate 20% of a value, simply multiply if with 20/100 = 0.2)
+ 
+ 
+
+// 1) Containing all three tips (one for each bill)
+
+ 
+function tipCalculator (billAmount) {
+    var percentage;
+
+    if (billAmount < 50) { 
+        percentage = .2;
+        
+
+    } else if (billAmount >= 50 && billAmount < 200) { 
+        percentage = .15;
+
+
+    } else { 
+        percentage = .1;
+    }
+    return percentage * billAmount;
+}
+
+var billAmounts = [124, 48, 268];
+var tipAmount = [tipCalculator(billAmounts[0]),
+                tipCalculator(billAmounts[1]),
+                tipCalculator(billAmounts[2])
+                ]
+
+var finalValues = [billAmounts[0] + tipAmount[0],
+                    billAmounts[1] + tipAmount[1],
+                    billAmounts[2] + tipAmount[2]];
+console.log(tipAmount, finalValues);
+
+*/
+//coding challange 5
+/* Remember the tip calculator challenge? Let's create a more advanced version using everything we learned!
+This time, John and his family went to 5 different restaurants. 
+The bills were $124, $48, $268, $ 180 and $42.
+John likes to tip 20% of the bill when the bill is less than $50, 
+15% when the bill is between $50 and $200, 
+and 10% if the bill is more than $200.
+
+Implement a tip calculator using objects and loops:
+1. Create an object with an array for the bill values.
+
+*/
+
+/*
+var bill = [124, 48, 268, 180, 42];
+
+// 2. Add a method to calculate the tip
+
+
+//////////////////////////
+ ES6 Arrays
+ ////////////////////////
+/*
+
+Array.from(boxes).forEach(cur => cur.style.backgroundColor = 'dodgerblue');
+
+
+const years = [1990, 1965, 1982, 1937];
+
+//ES5
+var ages5 = years.map(function(el) {
+    return 2016 - el;
+});
+console.log(ages5);
+
+// ES6
+let ages6 = years.map(el => 2016 - el);
+console.log(ages6);
+
+
+
+//taken out function (=> now use the arrow instead of writing function/ don't need the retunr either)
+
+//all you need is the arguement the => then what we want to place in our return statement.
+
+const tips = [124, 48, 130];
+const workers = tips.map(el => el - 30)
+console.log(workers);
+
+// more then one (el)
+ages6 = years.map((el, index) => `Age element ${index + 1}: ${2016 - el}.`);
+console.log(ages6);
+
+ages6 = years.map((el, index) => {
+    const now = new 
+    Date().getFullYear();
+    const age = now - el;
+    return `Age element ${index + 1}: ${age}.`
+
+});
+
+console.log(ages6);
+
+//Lecture Arrow functions 2
+var box5 = {
+    color: 'green',
+    position: 1,
+    clickme: function() {
+        var self = this
+        document.querySelector('.green').addEventListener('click',
+        function() {
+            var str = 'This is box number ' + self.position + ' and it is ' + self.color; alert(str);
+        })
+    }
+}
+box5.clickme();
+
+//clickme is a function attached to an object - so the method has access to the color and position using the this keyword.
+// get around this by creating a 'this' variable.
+
+// using arrow functions
+
+var box6 = {
+    color: 'green',
+    position: 1,
+    clickme: function() {
+        var self = this
+        document.querySelector('.green').addEventListener('click', () => {
+            var str = 'This is box number ' + this.position + ' and it is ' + this.color; alert(str);
+        })
+    }
+}
+box6.clickme();
+
+//function contructor in order to create a person object
+
+function Person(name) {
+    this.name = name;
+}
+
+//ES5
+Person.prototype.myFriends5 = function(friends) {
+    
+}
+
+*/
+//////////////////////////////
+//// Lecture: Rest parameters
+//////////////////////////////
+/*
+//ES5
+function isFullAge5() {
+    //console.log(arguments);
+    var argsArr = 
+    Array.prototype.slice.call(arguments);
+
+    argsArr.forEach(function(cur) {
+        console.log((2016 - cur) >= 18);
+    })
+}
+
+isFullAge5(1990, 1999, 1965);
+isFullAge5(1990, 1999, 1965, 1986, 2018);
+
+//ES6
+function isFullAge6(...years) {
+    years.forEach(cur => console.log((2016 - cur) >= 18));
+}
+
+isFullAge6(1990, 1999, 1965);
+*/
+
+/*
+//ES5
+function isFullAge5(limit) {
+    //console.log(arguments);
+    var argsArr = 
+    Array.prototype.slice.call(arguments, 1);
+    argsArr.forEach(function(cur) {
+        console.log((2016 - cur) >= limit);
+    })
+}
+
+isFullAge5(1990, 1999, 1965);
+isFullAge5(1990, 1999, 1965, 1986, 2018);
+
+//ES6
+function isFullAge6(limit, ...years) {
+    years.forEach(cur => console.log((2016 - cur) >= limit));
+}
+
+isFullAge6(16, 1990, 1999, 1965);
+*/
+
+////////////////////////////
+////// Lecture: Default parameters
+/*
+// ES5  
+function SmithPerson(firstName, yearOfBirth, lastName, nationality) {
+
+    lastName === undefined ? lastName = 'Smith' : lastName = lastName;
+    nationality === undefined ? nationality = 'American' : nationality = nationality;
+
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.yearOfBirth = yearOfBirth;
+    this.nationality = nationality;
+
+}
+*/
+
+//ES6
+function SmithPerson(firstName, yearOfBirth, lastName='smith', nationality = 'american') {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.yearOfBirth = yearOfBirth;
+    this.nationality = nationality;
+}
+
+var john = new SmithPerson('John', 1990);
+var emily = new SmithPerson('Emily', 1983, 'Diaz', 'spanish');
+
+
+//////////////////////
+////MAPS
+///////////////////
+
+const question = new Map();
+question.set('question', 'What is the offical name of the lastest major JavaScript version?');
+question.set(1, 'ES5');
+question.set(2, 'ES6');
+question.set(3, 'ES2015');
+question.set(4, 'ES7');
+question.set('correct', 3);
+question.set(true, 'Corect answer :D');
+question.set(false, 'Wrong, please try again');
+
+console.log(question.get('question'));
+console.log(question.size);
+
+if(question.has(4)) {
+    //question.delete(4);
+    console.log('Answer 4 is here')
+}
+
+//question.clear();
+
+//question.forEach((value, key) => console.log(`This is ${key}, and it's set to ${value}`));
+
+for (let [key, value] of question.entries()) {
+    if (typeof(key) === 'number') {
+        console.log(`Answer ${key}: ${value}`);
+
+    }
+}
+
+const ans = parseInt(prompt('Write the correct answer'));
+console.log(question.get(ans === question.get('correct')));
+
+
+/*
+/////////////////////////
+// CLASSES
+///////////////////////
+
+//ES5
+var Person5 = function(name, yearOfBirth, job) {
+    this.name = name;
+    this.yearOfBirth = yearOfBirth
+    this.job = job
+}
+
+Person5.prototype.calculateAge = 
+function() {
+    var age = new Date().getFullYear - this.yearOfBirth;
+    console.log(age);
+}
+
+var john5 = new Person5('John', 1990, 'teacher');
+
+//ES6
+class Person6 {
+    constructor (name, yearOfBirth, job) {
+        this.name = name
+        this.yearOfBirth = yearOfBirth;
+        this.job = job;
+    }
+
+    calculateAge() {
+        var age = newDate().getFullYear - this.yearOfBirth;
+        console.log(age);
+    }
+    static greeting() {
+        console.log('Hey there!');
+    }
+}
+
+const john6 = new Person6('John', 1990, 'teacher');
+
+Person6.greeting();
+*/
+
+//ES5
+var Person5 = function(name, yearOfBirth, job) {
+    this.name = name;
+    this.yearOfBirth = yearOfBirth
+    this.job = job
+}
+
+Person5.prototype.calculateAge = 
+function() {
+    var age = new Date().getFullYear() - this.yearOfBirth;
+    console.log(age);
+}
+
+var Athlete5 = function(name, yearOfBirth, job, olymicGames, medals) {
+    Person5.call(this, name, yearOfBirth, job);
+    this.olymicGames = olymicGames;
+    this.medals = medals;
+}
+
+
+Athlete5.prototype = Object.create(Person5.prototype);
+
+Athlete5.prototype.wonMedal = function() {
+    this.medals++;
+    console.log(this.medals);
+}
+
+var johnAthlete5 = new Athlete5('John', 1990, 'swimmer', 3, 10);
+
+johnAthlete5.calculateAge();
+johnAthlete5.wonMedal();
+//ES6
+class Person6 {
+    constructor (name, yearOfBirth, job) {
+        this.name = name;
+        this.yearOfBirth = yearOfBirth;
+        this.job = job;
+    }
+
+    calculateAge() {
+        var age = new Date().getFullYear() - this.yearOfBirth;
+        console.log(age);
+    }
+}
+
+class Athlete6 extends Person6 {
+    constructor(name, yearOfBirth, job, olympicGames, medals) {
+        super(name, yearOfBirth, job);
+        this.olympicGames = olympicGames;
+        this.medals = medals;
+    }
+
+    wonMedal() {
+        this.medals++;
+        console.log(this.medals);
+    }
+}
+
+const johnAthlete6 = new Athlete6('John', 1990, 'swimmer', 3, 10);
+
+johnAthlete6.wonMedal();
+johnAthlete6.calculateAge();
+
+/*
+//Suppose that you're working in a small town administration, and you're in charge of two town elements:
+1. Parks
+2. Streets
+
+It's a very small town, so right now there are only 3 parks and 4 streets. All parks and streets have a name and a build year.
+
+At the end-of-year meeting, your boss wants a final report with the following:
+1. Tree density of each park in the town 
+(forumla: number of trees/park area)
+
+2. Average age of each town's park 
+(formula: sum of all ages/number of parks)
+
+3. The name of the park that has more than 1000 trees.
+
+4. Total and average length of the town's streets
+(.length)
+
+5. Size classification of all streets:
+tiny/small/normal/big/huge. If the size is unknown, the default is normal.
+
+All the report data should be printed to the console.
+
+HINT: Use some of the ES6 features: classes, subclasses, template strings, default parameters, maps, arrow functions, destructing.
+
+*/
+
+
+//Create a super class
+
+class Report {
+    constructor (name, buildYear) {
+        this.name = name;
+        this.buildYear = buildYear;
+        
+    }
+
+    calculateAge() {
+        var age = new Date().getFullYear() - this.yearOfBirth;
+        console.log(age);
+    }
+}
+
+class Parks extends Report {
+    constructor(name, buildYear, total) {
+        super(name, buildYear);
+        this.total = total;
+        
+       
+    }
+
+    wonMedal() {
+        this.medals++;
+        console.log(this.medals);
+    }
+}
+
+const firstSteet = new Parks('Barkly Gardens', 1910, 3);
+console.log(firstSteet)
+
+johnAthlete6.wonMedal();
+johnAthlete6.calculateAge();
 
 
