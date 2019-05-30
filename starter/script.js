@@ -735,6 +735,7 @@ class Report {
     }
 }
 
+//sub class 1
 class Park extends Report {
     constructor(name, buildYear, totalTrees, area) {
         super(name, buildYear);
@@ -748,6 +749,8 @@ class Park extends Report {
         console.log(`The tree density at ${this.name} is ${density} trees per square km.`);
     }
 }
+
+//sub class 2
     
 class Street extends Report {
     constructor(name, buildYear, length, streets = 3) {
