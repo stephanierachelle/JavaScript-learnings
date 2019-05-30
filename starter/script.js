@@ -541,7 +541,7 @@ function SmithPerson(firstName, yearOfBirth, lastName, nationality) {
 
 }
 */
-
+/*
 //ES6
 function SmithPerson(firstName, yearOfBirth, lastName='smith', nationality = 'american') {
     this.firstName = firstName;
@@ -589,7 +589,7 @@ for (let [key, value] of question.entries()) {
 
 const ans = parseInt(prompt('Write the correct answer'));
 console.log(question.get(ans === question.get('correct')));
-
+*/
 
 /*
 /////////////////////////
@@ -727,37 +727,94 @@ HINT: Use some of the ES6 features: classes, subclasses, template strings, defau
 
 //Create a super class
 
+
 class Report {
     constructor (name, buildYear) {
         this.name = name;
-        this.buildYear = buildYear;
-        
-    }
-
-    calculateAge() {
-        var age = new Date().getFullYear() - this.yearOfBirth;
-        console.log(age);
+        this.buildYear = buildYear;  
     }
 }
 
-class Parks extends Report {
-    constructor(name, buildYear, total) {
+class Park extends Report {
+    constructor(name, buildYear, totalTrees, area) {
         super(name, buildYear);
-        this.total = total;
-        
-       
+        this.totalTrees = totalTrees;
+        this.area = area; //km2
     }
 
-    wonMedal() {
-        this.medals++;
-        console.log(this.medals);
+
+    treeDensity() {
+        const density = (this.totalTrees / this.area);
+        console.log(`The tree density at ${this.name} is ${density} trees per square km.`);
     }
 }
+    
+class Street extends Report {
+    constructor(name, buildYear, length, streets = 3) {
+        super(name, buildYear);
+        this.length = length;
+        this.streets = streets; // 3 for now...
+    }
+    sizeClassification() {
+        const classification = new Map();
+        classification.set(1, 'tiny');
+        classification.set(2, 'small');
+        classification.set(3, 'normal');
+        classification.set(4, 'big');
+        classification.set(5, 'huge');
 
-const firstSteet = new Parks('Barkly Gardens', 1910, 3);
-console.log(firstSteet)
+        console.log(`${this.name}, built in ${this.buildYear}, is a ${classification.get(this.streets)} street.`);
 
-johnAthlete6.wonMedal();
-johnAthlete6.calculateAge();
+    }  
+}
+
+const totalParks = [
+    new Park('Barkly Gardens', 1910, 500, 2),
+    new Park('Herring Island Sculpture Park', 1994, 800, 6), 
+    new Park('Queen Victoria Gardens', 1970, 1200, 12) ];
 
 
+
+const totalStreets = [
+        new Street('Red street', 1940, 5, 1),
+        new Street('Blue street', 2015, 7), 
+        new Street('Green street', 1980, 1, 2),
+        new Street('Orange', 1982, 2.5, 5) ];
+
+function calc(arr) {
+        const sum = arr.reduce((prev, cur, index) => prev + cur, 0);
+
+        return [ sum, sum / arr.length]; //sum of all the elements in the array
+        
+    }
+
+
+function reportParks(p) {
+
+    console.log('*******The Parks report *******')
+    // 1. Tree density of each park in the town (forumla: number of trees/park area)
+    p.forEach(el => el.treeDensity());
+
+    // 2. Average age (forumla: sum of all ages/number of parks)
+    const ages = p.map(el => new Date().getFullYear() - el.buildYear)
+    const [avgAge] = calc(ages);
+    console.log(`Our ${p.length} parks have an average of ${avgAge} years.`)
+
+    // 3. The name of the park that has more than 1000 trees - loop through to find 1000
+    const i = p.map(el => el.totalTrees).findIndex(el => el >= 1000);
+    console.log(`${p[i].name} has more than 1000 trees`)  
+} 
+
+function reportStreets(s) {
+    console.log('*******The Streets report *******')
+
+    // 4. Total and average length of the town's streets
+    length = s.map(el => el.length);
+    const [totalLength, avgLength] = calc(length)
+console.log(`Our ${s.length} streets have a total length of ${totalLength} km, with an average of ${avgLength} km.`)
+     // 5. Size classification of all streets: tiny/small/normal/big/huge. If the size is unknown, the default is normal
+     s.forEach(el => el.sizeClassification());
+}
+
+reportParks(totalParks);
+reportStreets(totalStreets);
